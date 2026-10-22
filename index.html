@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#103c43">
+<title>CORAL | Community Information Hub</title>
+<style>
+:root{
+ --ink:#18373c;--muted:#667d80;--line:#dce8e5;--paper:#f4f8f6;--white:#fff;
+ --navy:#103c43;--navy2:#174f55;--teal:#16877f;--mint:#dff5ec;--blue:#e6f1ff;
+ --amber:#fff2d6;--amberink:#855b0c;--red:#ffebe8;--redink:#9a3b32;--green:#e0f6e9;
+ --shadow:0 12px 32px rgba(16,60,67,.07);--radius:18px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #6bc8b8;outline-offset:2px}
+.app{min-height:100vh;display:grid;grid-template-columns:248px minmax(0,1fr)}
+.sidebar{background:var(--navy);color:white;padding:25px 17px;display:flex;flex-direction:column;gap:30px}
+.brand{display:flex;align-items:center;gap:11px;padding:0 8px}.brand-mark{width:43px;height:43px;display:grid;place-items:center;background:#bcebdc;color:var(--navy);border-radius:14px;font-size:22px;font-weight:950;box-shadow:inset 0 0 0 1px #d6f7eb}.brand-name{font-weight:850;font-size:18px;letter-spacing:.06em;line-height:1.1}.brand-sub{font-size:10px;color:#b8d7d7;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
+.nav-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#8fb6b8;font-weight:800;padding:0 12px;margin-bottom:8px}.nav{display:grid;gap:6px}.nav button{display:flex;align-items:center;gap:12px;padding:12px;border:0;border-radius:12px;background:transparent;color:#d4e5e4;text-align:left;font-size:13px;font-weight:650;width:100%}.nav button:hover,.nav button.active{background:#22575d;color:white}.nav .nav-icon{width:25px;text-align:center;font-size:17px}.sidebar-bottom{margin-top:auto}.side-card{background:#194950;border:1px solid #32646a;padding:15px;border-radius:15px}.side-card .mini-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#b5d8d4;font-weight:800}.side-card strong{display:block;font-size:13px;margin:7px 0 4px}.side-card p{font-size:11px;color:#c6dddd;margin:0}
+.main{min-width:0}.topbar{height:76px;background:rgba(255,255,255,.9);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 35px;position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}.crumb{font-size:12px;color:var(--muted)}.crumb strong{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:9px}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:11px;width:39px;height:39px;display:grid;place-items:center;color:var(--ink);font-size:16px}.profile{display:flex;align-items:center;gap:9px;padding-left:7px}.avatar{width:35px;height:35px;border-radius:12px;display:grid;place-items:center;background:var(--mint);color:#12655c;font-size:13px;font-weight:900}.profile-text strong{font-size:12px;display:block}.profile-text span{font-size:10px;color:var(--muted)}
+.content{max-width:1450px;margin:auto;padding:30px 35px 45px}.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);font-weight:900}.page-heading h1{font-size:clamp(26px,3vw,35px);letter-spacing:-.045em;line-height:1.13;margin:7px 0 8px}.page-heading p{margin:0;color:var(--muted);max-width:640px;font-size:13px}.date-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;font-size:12px;color:var(--muted);white-space:nowrap}
+.demo-banner{display:flex;gap:12px;align-items:flex-start;background:#fff8e8;border:1px solid #f1dfb6;color:#70531d;padding:13px 16px;border-radius:13px;font-size:12px;margin-bottom:22px}.demo-banner .banner-icon{font-size:17px}.demo-banner strong{display:block;margin-bottom:2px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.stat-label{font-size:12px;color:var(--muted);font-weight:700}.stat-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;font-size:19px}.stat:nth-child(1) .stat-icon{background:#fff0d9}.stat:nth-child(2) .stat-icon{background:#e4f2ff}.stat:nth-child(3) .stat-icon{background:#e3f7e9}.stat-value{font-size:22px;font-weight:850;letter-spacing:-.03em;margin:13px 0 3px}.stat-note{font-size:11px;color:var(--muted)}.stat-accent{height:3px;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(90deg,#16877f,transparent)}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:28px 0 13px}.section-title h2{font-size:18px;margin:0;letter-spacing:-.025em}.section-title p{font-size:11px;color:var(--muted);margin:4px 0 0}.text-button{border:0;background:transparent;color:var(--teal);font-size:12px;font-weight:800;padding:7px}
+.workspace{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(265px,.75fr);gap:17px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}.card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:20px 20px 0}.card-header h3{font-size:15px;margin:0}.card-header p{font-size:11px;color:var(--muted);margin:4px 0 0}.filter-row{padding:16px 20px 12px;display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#fff;color:var(--muted);padding:8px 11px;border-radius:10px;font-size:11px;font-weight:800}.filter.active{background:var(--navy);border-color:var(--navy);color:#fff}.search{margin:0 20px 13px;display:flex;align-items:center;gap:9px;border:1px solid var(--line);background:#f9fbfa;border-radius:11px;padding:0 11px}.search span{color:#849797}.search input{width:100%;border:0;outline:none;background:transparent;padding:10px 0;font-size:12px;color:var(--ink)}
+.notice-list{padding:0 20px 20px;display:grid;gap:10px}.notice{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px}.notice-icon{width:40px;height:40px;display:grid;place-items:center;background:var(--mint);border-radius:12px;font-size:18px}.notice h4{font-size:13px;margin:0 0 4px}.notice p{font-size:11px;line-height:1.55;color:var(--muted);margin:0}.notice-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:9px}.badge{display:inline-flex;align-items:center;border-radius:99px;padding:4px 8px;font-size:9px;font-weight:850;letter-spacing:.01em;background:var(--blue);color:#275c83}.badge.caution{background:var(--amber);color:var(--amberink)}.badge.urgent{background:var(--red);color:var(--redink)}.badge.safe{background:var(--green);color:#226446}.meta-source{font-size:10px;color:#829394}.empty{border:1px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted);font-size:12px}
+.right-col{display:grid;gap:16px}.quick-card{padding:19px}.quick-card h3{margin:0;font-size:15px}.quick-card>p{font-size:11px;color:var(--muted);margin:4px 0 15px}.quick-item{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid #edf2f0}.quick-item:first-of-type{border-top:0}.quick-icon{width:37px;height:37px;display:grid;place-items:center;border-radius:12px;background:#f0f7f5;font-size:17px}.quick-item .qtext{flex:1;min-width:0}.quick-item strong{display:block;font-size:11px}.quick-item span{font-size:10px;color:var(--muted)}.arrow{color:#8ba1a0;font-size:17px}.guidance{padding:19px;background:var(--navy);color:white;border-radius:var(--radius);box-shadow:var(--shadow)}.guidance .guide-icon{font-size:22px}.guidance h3{font-size:15px;margin:8px 0 6px}.guidance p{font-size:11px;color:#c9dedd;margin:0;line-height:1.65}.guidance .guide-line{height:1px;background:#3a666b;margin:14px 0}.guidance .guide-foot{font-size:10px;color:#a9ceca}
+.admin{margin-top:18px;overflow:hidden}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px;border-bottom:1px solid var(--line)}.admin-head h3{margin:0;font-size:15px}.admin-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.primary,.secondary{border-radius:10px;padding:10px 13px;font-size:11px;font-weight:850}.primary{background:var(--teal);border:1px solid var(--teal);color:white}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}.admin-body{padding:20px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:5px}.field label{font-size:10px;color:#4c686b;font-weight:850}.field input,.field select,.field textarea{width:100%;border:1px solid #d3e1dd;border-radius:10px;padding:10px 11px;background:#fff;color:var(--ink);font-size:12px}.field textarea{min-height:78px;resize:vertical}.span-2{grid-column:1/-1}.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.form-message{font-size:11px;color:var(--teal);margin:10px 0 0}.hidden{display:none!important}
+footer{padding:20px 35px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:10px}.footer-brand{color:var(--ink);font-weight:850;letter-spacing:.07em}
+.modal-backdrop{position:fixed;inset:0;background:rgba(7,35,39,.58);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{background:white;border-radius:18px;padding:23px;width:min(480px,100%);box-shadow:0 25px 80px #06282c55}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal h2{font-size:19px;margin:0}.modal p{font-size:12px;color:var(--muted)}.close{border:1px solid var(--line);background:white;border-radius:9px;padding:6px 10px}.setting-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+body.high-contrast{--ink:#000;--muted:#26383c;--line:#728585;--paper:#fff}body.high-contrast .card,body.high-contrast .stat{border:2px solid #223}body.large-text{font-size:18px}
+@media(max-width:1000px){.app{grid-template-columns:78px minmax(0,1fr)}.sidebar{padding:22px 10px}.brand{justify-content:center;padding:0}.brand-copy,.nav-label,.nav-text,.side-card{display:none}.nav button{justify-content:center;padding:12px}.nav .nav-icon{width:auto;font-size:19px}.sidebar-bottom{display:none}.workspace{grid-template-columns:minmax(0,1.3fr) minmax(230px,.8fr)}.content{padding:25px 22px}.topbar{padding:0 22px}}
+@media(max-width:720px){.app{display:block}.sidebar{position:sticky;top:0;z-index:7;padding:9px 12px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}.brand{justify-content:flex-start}.brand-copy{display:block}.brand-mark{width:36px;height:36px;border-radius:11px}.brand-name{font-size:15px}.brand-sub{font-size:8px}.nav{display:flex;gap:3px}.nav-label,.nav-text,.sidebar-bottom{display:none}.nav button{padding:8px;width:38px;height:38px}.nav .nav-icon{font-size:16px}.topbar{height:58px;padding:0 15px;position:static}.profile-text{display:none}.content{padding:20px 14px 32px}.page-heading{flex-direction:column}.date-chip{display:none}.stats{gap:9px}.stat{padding:14px;border-radius:14px}.stat-value{font-size:18px}.stat-label{font-size:10px}.stat-icon{width:31px;height:31px}.workspace{grid-template-columns:1fr}.right-col{grid-template-columns:1fr 1fr}.card-header{padding:16px 15px 0}.filter-row{padding:13px 15px 10px}.search{margin:0 15px 12px}.notice-list{padding:0 15px 15px}.quick-card,.guidance{padding:15px}.admin-grid{grid-template-columns:1fr}.span-2{grid-column:auto}footer{padding:18px 15px}}
+@media(max-width:430px){.stats{grid-template-columns:1fr}.stat{display:grid;grid-template-columns:1fr auto;align-items:center}.stat-head{display:contents}.stat-icon{grid-column:2;grid-row:1/3}.stat-value{margin:5px 0 0}.stat-note{grid-column:1}.right-col{grid-template-columns:1fr}.profile{display:none}.top-actions{margin-left:auto}.filter{padding:8px 9px}.notice{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:11px}.notice-icon{width:34px;height:34px}}
+@media print{.sidebar,.topbar,.demo-banner,.right-col,.admin,button,footer{display:none!important}.app{display:block}.content{padding:0}.card,.stat{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" aria-label="Main navigation">
+  <div class="brand"><div class="brand-mark">C</div><div class="brand-copy"><div class="brand-name">CORAL</div><div class="brand-sub">Community information hub</div></div></div>
+  <div><div class="nav-label">Workspace</div><nav class="nav">
+    <button class="active" data-nav="overview" aria-label="Overview"><span class="nav-icon">▦</span><span class="nav-text">Overview</span></button>
+    <button data-nav="power" aria-label="Power interruptions"><span class="nav-icon">ϟ</span><span class="nav-text">Power interruptions</span></button>
+    <button data-nav="sea" aria-label="Sea travel"><span class="nav-icon">⌁</span><span class="nav-text">Sea travel status</span></button>
+    <button data-nav="disaster" aria-label="Disaster advisories"><span class="nav-icon">◉</span><span class="nav-text">Disaster advisories</span></button>
+  </nav></div>
+  <div class="sidebar-bottom"><div class="side-card"><div class="mini-label">Preparedness tip</div><strong>Information saves time.</strong><p>Check official advisories before travelling or making emergency decisions.</p></div></div>
+</aside>
+<div class="main">
+<header class="topbar"><div class="crumb">CORAL <span style="padding:0 7px;color:#a2b4b1">/</span> <strong id="breadcrumb">Overview</strong></div><div class="top-actions"><button class="icon-btn" id="accessBtn" title="Accessibility settings" aria-label="Accessibility settings">◐</button><button class="icon-btn" id="adminBtn" title="Toggle administrator dashboard" aria-label="Toggle administrator dashboard">⚙</button><div class="profile"><div class="avatar">CA</div><div class="profile-text"><strong>Community Access</strong><span>Public view</span></div></div></div></header>
+<main class="content">
+  <section class="page-heading"><div><div class="eyebrow">Corcuera, Romblon · Community readiness</div><h1>Good information.<br>Safer decisions.</h1><p>A central place to view community notices about electricity, sea travel, and disaster preparedness.</p></div><div class="date-chip"><span>◷</span><span>Research prototype</span></div></section>
+  <div class="demo-banner"><span class="banner-icon">ⓘ</span><div><strong>Demonstration mode</strong>All notices on this page are sample content. This prototype is not connected to official data feeds, a shared database, or live emergency notifications.</div></div>
+  <section class="stats" aria-label="Information categories">
+    <article class="stat"><div class="stat-head"><span class="stat-label">Power interruption notices</span><span class="stat-icon">⚡</span></div><div class="stat-value" id="powerStat">1 sample notice</div><div class="stat-note">Schedules and affected areas</div><div class="stat-accent"></div></article>
+    <article class="stat"><div class="stat-head"><span class="stat-label">Sea travel information</span><span class="stat-icon">⛴️</span></div><div class="stat-value" id="seaStat">Check before travel</div><div class="stat-note">Confirm status with authorities</div><div class="stat-accent"></div></article>
+    <article class="stat"><div class="stat-head"><span class="stat-label">Disaster preparedness</span><span class="stat-icon">🌦️</span></div><div class="stat-value" id="disasterStat">Stay informed</div><div class="stat-note">Follow official advisories</div><div class="stat-accent"></div></article>
+  </section>
+  <div class="section-title"><div><h2>Community notices</h2><p>Browse information by category and search the notice details.</p></div><button class="text-button" id="printBtn">Print page ↗</button></div>
+  <div class="workspace">
+    <section class="card">
+      <div class="card-header"><div><h3>Latest updates</h3><p>Sample notices for demonstration</p></div><span class="badge safe">Prototype</span></div>
+      <div class="filter-row" role="tablist" aria-label="Filter notices"><button class="filter active" data-filter="all" aria-selected="true">All categories</button><button class="filter" data-filter="power" aria-selected="false">⚡ Power</button><button class="filter" data-filter="sea" aria-selected="false">⛴️ Sea travel</button><button class="filter" data-filter="disaster" aria-selected="false">🌦️ Disaster</button></div>
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search notices..." aria-label="Search notices"></label>
+      <div class="notice-list" id="noticeList" aria-live="polite"></div>
+    </section>
+    <aside class="right-col">
+      <section class="card quick-card"><h3>Explore CORAL</h3><p>Select an information area to filter notices.</p>
+        <div class="quick-item" role="button" tabindex="0" data-quick="power"><div class="quick-icon">⚡</div><div class="qtext"><strong>Power interruptions</strong><span>Schedules and service notices</span></div><span class="arrow">›</span></div>
+        <div class="quick-item" role="button" tabindex="0" data-quick="sea"><div class="quick-icon">⛴️</div><div class="qtext"><strong>Sea travel status</strong><span>Travel-related announcements</span></div><span class="arrow">›</span></div>
+        <div class="quick-item" role="button" tabindex="0" data-quick="disaster"><div class="quick-icon">🌦️</div><div class="qtext"><strong>Disaster advisories</strong><span>Preparedness and safety notices</span></div><span class="arrow">›</span></div>
+      </section>
+      <section class="guidance"><div class="guide-icon">✦</div><h3>Stay prepared</h3><p>Verify notices with the relevant local office before acting on them. During emergencies, follow instructions from authorized responders.</p><div class="guide-line"></div><div class="guide-foot">Designed for community information access in Corcuera, Romblon.</div></section>
+    </aside>
+  </div>
+  <section class="card admin hidden" id="adminPanel"><div class="admin-head"><div><h3>Administrator dashboard</h3><p>Add sample notices to demonstrate the content-management workflow.</p></div><button class="secondary" id="hideAdmin">Close</button></div><div class="admin-body"><form id="noticeForm"><div class="admin-grid">
+    <div class="field"><label for="category">CATEGORY</label><select id="category"><option value="power">Power interruption</option><option value="sea">Sea travel status</option><option value="disaster">Disaster advisory</option></select></div>
+    <div class="field"><label for="level">NOTICE TYPE</label><select id="level"><option value="info">Information</option><option value="caution">Caution</option><option value="urgent">Urgent (demo)</option></select></div>
+    <div class="field span-2"><label for="title">NOTICE TITLE</label><input id="title" required maxlength="100" placeholder="Enter a clear notice title"></div>
+    <div class="field span-2"><label for="details">DETAILS</label><textarea id="details" required maxlength="500" placeholder="Include affected areas, date/time, and relevant details."></textarea></div>
+    <div class="field span-2"><label for="source">SOURCE / ISSUING OFFICE</label><input id="source" maxlength="120" placeholder="Enter the source or office name"></div>
+  </div><div class="form-actions"><button class="primary" type="submit">＋ Add sample notice</button><button class="secondary" type="button" id="resetDemo">Reset sample data</button></div><p class="form-message" id="formMessage" role="status"></p></form></div></section>
+</main>
+<footer><span class="footer-brand">CORAL</span><span>Community Rescue and Alert Link · Corcuera, Romblon</span><span>Research prototype · Sample information only</span></footer>
+</div></div>
+<div class="modal-backdrop" id="accessModal" role="dialog" aria-modal="true" aria-labelledby="accessTitle"><div class="modal"><div class="modal-head"><h2 id="accessTitle">Accessibility settings</h2><button class="close" id="closeAccess" aria-label="Close settings">✕</button></div><p>Adjust the page for easier reading. These settings apply to the current browser session.</p><div class="setting-actions"><button class="secondary" id="largeText">Toggle larger text</button><button class="secondary" id="highContrast">Toggle high contrast</button><button class="secondary" id="resetAccess">Reset settings</button></div></div></div>
+<script>
+(function(){
+ const sample={
+  power:[{title:"Sample scheduled power interruption",details:"Demonstration notice: this area can show the affected locations, schedule, and expected restoration time when verified information is available.",source:"Sample source · not official",level:"info",tag:"Sample notice"}],
+  sea:[{title:"Sea travel status reminder",details:"Before travelling, confirm current sailing status with the appropriate maritime authority and local transport operator.",source:"Example guidance · not live",level:"caution",tag:"Verify before travel"}],
+  disaster:[{title:"Community preparedness reminder",details:"Monitor official weather and disaster advisories. Follow guidance issued by authorized local disaster risk reduction and management offices.",source:"Example guidance · not live",level:"info",tag:"Preparedness"}]
+ };
+ let entries=JSON.parse(JSON.stringify(sample)),activeFilter="all";
+ const labels={power:"Power interruptions",sea:"Sea travel status",disaster:"Disaster advisories"};
+ const icons={power:"⚡",sea:"⛴️",disaster:"🌦️"};
+ const list=document.getElementById("noticeList");
+ function render(){
+  const query=document.getElementById("searchInput").value.trim().toLowerCase();
+  const all=Object.keys(entries).flatMap(cat=>entries[cat].map(n=>({...n,category:cat})));
+  const filtered=all.filter(n=>(activeFilter==="all"||n.category===activeFilter)&&[n.title,n.details,n.source,labels[n.category]].join(" ").toLowerCase().includes(query));
+  list.innerHTML="";
+  if(!filtered.length){list.innerHTML='<div class="empty">No notices match your search. Try another keyword or category.</div>';return;}
+  filtered.forEach(n=>{
+   const article=document.createElement("article");article.className="notice";
+   const icon=document.createElement("div");icon.className="notice-icon";icon.textContent=icons[n.category];
+   const body=document.createElement("div");const h=document.createElement("h4");h.textContent=n.title;
+   const p=document.createElement("p");p.textContent=n.details;
+   const meta=document.createElement("div");meta.className="notice-meta";
+   const badge=document.createElement("span");badge.className="badge "+(n.level==="urgent"?"urgent":n.level==="caution"?"caution":"safe");badge.textContent=n.tag||"Sample notice";
+   const source=document.createElement("span");source.className="meta-source";source.textContent=n.source||"Source not specified";
+   meta.append(badge,source);body.append(h,p,meta);article.append(icon,body);list.append(article);
+  });
+ }
+ function setFilter(f){
+  activeFilter=f;
+  document.querySelectorAll("[data-filter]").forEach(b=>{b.classList.toggle("active",b.dataset.filter===f);b.setAttribute("aria-selected",String(b.dataset.filter===f));});
+  document.querySelectorAll("[data-nav]").forEach(b=>b.classList.toggle("active",b.dataset.nav===f));
+  document.getElementById("breadcrumb").textContent=f==="all"?"Overview":labels[f];
+  render();
+ }
+ document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.filter)));
+ document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{setFilter(b.dataset.nav==="overview"?"all":b.dataset.nav);document.querySelector(".section-title").scrollIntoView({behavior:"smooth",block:"start"});}));
+ document.querySelectorAll("[data-quick]").forEach(b=>{const act=()=>{setFilter(b.dataset.quick);document.querySelector(".section-title").scrollIntoView({behavior:"smooth",block:"start"});};b.addEventListener("click",act);b.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});});
+ document.getElementById("searchInput").addEventListener("input",render);
+ const admin=document.getElementById("adminPanel");
+ function toggleAdmin(){admin.classList.toggle("hidden");if(!admin.classList.contains("hidden"))admin.scrollIntoView({behavior:"smooth",block:"start"});}
+ document.getElementById("adminBtn").addEventListener("click",toggleAdmin);
+ document.getElementById("hideAdmin").addEventListener("click",()=>admin.classList.add("hidden"));
+ document.getElementById("noticeForm").addEventListener("submit",e=>{
+  e.preventDefault();const category=document.getElementById("category").value,level=document.getElementById("level").value;
+  const title=document.getElementById("title").value.trim(),details=document.getElementById("details").value.trim(),source=document.getElementById("source").value.trim();
+  if(!title||!details)return;
+  entries[category].unshift({title,details,source:source||"Not specified",level,tag:level==="urgent"?"Urgent · demo":level==="caution"?"Caution · demo":"Information · demo"});
+  document.getElementById("noticeForm").reset();document.getElementById("formMessage").textContent="Sample notice added in this browser only. It has not been sent to other visitors.";
+  setFilter(category);
+ });
+ document.getElementById("resetDemo").addEventListener("click",()=>{entries=JSON.parse(JSON.stringify(sample));document.getElementById("formMessage").textContent="Sample notices restored.";setFilter("all");});
+ document.getElementById("printBtn").addEventListener("click",()=>window.print());
+ const modal=document.getElementById("accessModal");
+ document.getElementById("accessBtn").addEventListener("click",()=>modal.classList.add("open"));
+ document.getElementById("closeAccess").addEventListener("click",()=>modal.classList.remove("open"));
+ modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("open");});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.classList.remove("open");});
+ document.getElementById("largeText").addEventListener("click",()=>document.body.classList.toggle("large-text"));
+ document.getElementById("highContrast").addEventListener("click",()=>document.body.classList.toggle("high-contrast"));
+ document.getElementById("resetAccess").addEventListener("click",()=>document.body.classList.remove("large-text","high-contrast"));
+ render();
+})();
+</script>
+</body>
+</html>
